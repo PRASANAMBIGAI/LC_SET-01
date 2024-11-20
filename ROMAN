@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include<string.h>
+int romanToNumeral(char a)
+{
+    switch(a)
+    {
+        case 'I':
+        return 1;
+        case 'V':
+        return 5;
+        case 'X':
+        return 10;
+        case 'L':
+        return 50;
+        case 'C':
+        return 100;
+        case 'D':
+        return 500;
+        case 'M':
+        return 1000;
+    }
+}
+int main()
+{
+    char a[20];
+    int val1,val2;
+    int res=0,len;
+    scanf("%s",a);
+    len=strlen(a);
+    for(int i=len-1;i>=0;i--)
+    {
+        if(((a[i]=='V')||(a[i]=='X'))&&(a[i-1]=='I'))
+        {
+        val1=romanToNumeral(a[i]);
+        val2=val1-1;
+        i--;
+        }
+        else if(((a[i]=='C')||(a[i]=='L'))&&(a[i-1]=='X'))
+        {
+        val1=romanToNumeral(a[i]);
+        val2=val1-10;
+        i--;
+        }
+        else if(((a[i]=='D')||(a[i]=='M'))&&(a[i-1]=='C'))
+        {
+        val1=romanToNumeral(a[i]);
+        val2=val1-100;
+        i--;
+        }
+        else
+        {
+        val2=romanToNumeral(a[i]);
+        }
+        res=res+val2;
+        
+    }
+    printf("%d",res);
+}
