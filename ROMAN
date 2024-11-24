@@ -1,58 +1,78 @@
-#include <stdio.h>
-#include<string.h>
-int romanToNumeral(char a)
+int romanToInt(char* s)
 {
-    switch(a)
+    int tot=0,current,next;
+    int len=strlen(s);
+    for(int i=0;i<len;i++)
     {
-        case 'I':
-        return 1;
-        case 'V':
-        return 5;
-        case 'X':
-        return 10;
-        case 'L':
-        return 50;
-        case 'C':
-        return 100;
-        case 'D':
-        return 500;
-        case 'M':
-        return 1000;
-    }
-}
-int main()
-{
-    char a[20];
-    int val1,val2;
-    int res=0,len;
-    scanf("%s",a);
-    len=strlen(a);
-    for(int i=len-1;i>=0;i--)
-    {
-        if(((a[i]=='V')||(a[i]=='X'))&&(a[i-1]=='I'))
+        switch(s[i])
         {
-        val1=romanToNumeral(a[i]);
-        val2=val1-1;
-        i--;
+            case 'I':
+              current=1;
+              break;
+            case 'V':
+               current=5;
+               break;
+            case 'X':
+               current=10;
+               break;
+            case 'L':
+               current=50;
+               break;
+            case 'C':
+               current=100;
+               break;
+            case 'D':
+               current=500;
+               break;
+            case 'M':
+               current=1000;
+               break;
+            default:
+                current=0;
+                break;                   
         }
-        else if(((a[i]=='C')||(a[i]=='L'))&&(a[i-1]=='X'))
+        if(i+1<len)
         {
-        val1=romanToNumeral(a[i]);
-        val2=val1-10;
-        i--;
-        }
-        else if(((a[i]=='D')||(a[i]=='M'))&&(a[i-1]=='C'))
-        {
-        val1=romanToNumeral(a[i]);
-        val2=val1-100;
-        i--;
+            switch(s[i+1])
+            {
+            case 'I':
+              next=1;
+              break;
+            case 'V':
+               next=5;
+               break;
+            case 'X':
+               next=10;
+               break;
+            case 'L':
+               next=50;
+               break;
+            case 'C':
+               next=100;
+               break;
+            case 'D':
+               next=500;
+               break;
+            case 'M':
+               next=1000;
+               break;
+            default:
+                next=0;
+                break;  
+            }
+            if(current < next)
+            {
+                tot -= current;
+            }
+            else
+            {
+                tot += current;
+            }
         }
         else
         {
-        val2=romanToNumeral(a[i]);
+            tot += current;
         }
-        res=res+val2;
-        
     }
-    printf("%d",res);
+   return tot;
 }
